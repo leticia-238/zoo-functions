@@ -1,11 +1,11 @@
 const data = require('../data/zoo_data');
 
-function isManager(id) {
+const isManager = (id) => {
   // seu código aqui
-}
+};
 
-function getRelatedEmployees(managerId) {
+const getRelatedEmployees = (managerId) => {
   // seu código aqui
-}
+};
 
 module.exports = { isManager, getRelatedEmployees };
