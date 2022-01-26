@@ -1,11 +1,19 @@
-const data = require('../data/zoo_data');
+const { employees } = require('../data/zoo_data');
 
-const isManager = (id) => {
-  // seu código aqui
-};
+let listManagerIds = employees.flatMap(({ managers }) => managers);
+listManagerIds = listManagerIds.filter((id, index) =>
+  index === listManagerIds.lastIndexOf(id));
+
+const isManager = (employeeId) => listManagerIds.includes(employeeId);
 
 const getRelatedEmployees = (managerId) => {
-  // seu código aqui
+  if (isManager(managerId)) {
+    return employees.filter(({ managers }) => managers.includes(managerId))
+      .map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+  }
+  throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
 };
 
 module.exports = { isManager, getRelatedEmployees };
+
+console.log(listManagerIds);
