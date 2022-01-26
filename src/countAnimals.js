@@ -16,6 +16,4 @@ const countAnimals = (objeto) => {
   return species.reduce(allAnimals, {});
 };
 
-console.log(countAnimals());
-
 module.exports = countAnimals;
