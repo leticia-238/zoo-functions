@@ -1,19 +1,20 @@
 const { employees } = require('../data/zoo_data');
 
-let listManagerIds = employees.flatMap(({ managers }) => managers);
-listManagerIds = listManagerIds.filter((id, index) =>
-  index === listManagerIds.lastIndexOf(id));
+const managersList = [];
 
-const isManager = (employeeId) => listManagerIds.includes(employeeId);
+employees.forEach(({ managers }) => {
+  const newEmployess = managers.filter((manager) => (!managersList.includes(manager)));
+  managersList.push(...newEmployess);
+});
+
+const isManager = (employeeId) => managersList.includes(employeeId);
 
 const getRelatedEmployees = (managerId) => {
   if (isManager(managerId)) {
-    return employees.filter(({ managers }) => managers.includes(managerId))
-      .map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+    const relatedEmployess = employees.filter(({ managers }) => managers.includes(managerId));
+    return relatedEmployess.map(({ firstName, lastName }) => `${firstName} ${lastName}`);
   }
   throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
 };
 
 module.exports = { isManager, getRelatedEmployees };
-
-console.log(listManagerIds);
